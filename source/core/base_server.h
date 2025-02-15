@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iface/iserver.h>
 
 #include <string>
@@ -18,6 +20,9 @@ public:
 
   const std::string& GetAddress() const;
   uint32_t GetPort() const;
+
+  void Setup() override = 0;
+  void Run() override = 0;
 
 private:
   std::string address_;

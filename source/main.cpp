@@ -1,8 +1,21 @@
-#include <crow.h>
+#include <logic/crow_server.h>
+
+#include <stdexcept>
+#include <iostream>
+#include <memory>
 
 int main()
 {
-  core::Server server{"0.0.0.0", 11050};
+  std::unique_ptr<iface::IServer> server =
+    std::make_unique<logic::CrowServer>("0.0.0.0", 11050);
 
-  server.Run();
+  try
+  {
+    server->Setup();
+    server->Run();
+  }
+  catch (const std::exception& ex)
+  {
+    std::cerr << "Server exception, ex = " << ex.what();
+  }
 }
