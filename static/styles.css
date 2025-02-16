@@ -187,6 +187,13 @@ footer {
   border-radius: 4px;
 }
 
+.yandex {
+  background-color: #ffc0c0;
+  color: #ee3232;
+  padding: 3px 5px;
+  border-radius: 4px;
+}
+
 #button-cpp {
   display: block;
   width: fit-content;
@@ -205,4 +212,11 @@ footer {
 
 #button-cpp:hover {
   background: #47ddff;
+}
+
+.rust-meme {
+  display: block;
+  max-width: 100%;
+  height: 400px;
+  margin: 0 auto;
 }
