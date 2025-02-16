@@ -1,0 +1,6 @@
+services:
+  cpp_victory:
+    build: .
+    ports:
+      - "11050:11050"
+    restart: always
