@@ -1,6 +1,8 @@
 # Project
 CMakeUserPresets.json
 build/
+.vscode
+CMakeUserPresets.json
 
 # Default
 *.d
