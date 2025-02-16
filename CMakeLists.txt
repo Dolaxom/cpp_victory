@@ -9,10 +9,12 @@ add_executable(cpp_victory
   source/main.cpp
 
   source/core/base_server.cpp
+  source/core/utils.cpp
   source/logic/crow_server.cpp
 
   source/iface/iserver.h
   source/core/base_server.h
+  source/core/utils.h
   source/logic/crow_server.h
 )
 
