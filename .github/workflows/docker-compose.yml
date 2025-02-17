@@ -26,7 +26,7 @@ jobs:
         run: sleep 30 # 30 seconds for startup
 
       - name: Check Container Logs
-        run: docker logs $(docker-compose ps -q cpp_victory)
+        run: docker logs $(docker compose ps -q cpp_victory)
 
       - name: Stop and Remove Containers
-        run: docker-compose down
+        run: docker compose down
