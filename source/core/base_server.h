@@ -8,7 +8,7 @@
 namespace core
 {
 
-class BaseServer : public iface::IServer
+class BaseServer : public interfaces::IServer
 {
 public:
   BaseServer() = delete;

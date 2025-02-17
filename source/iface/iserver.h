@@ -1,6 +1,6 @@
 #pragma once
 
-namespace iface
+namespace interfaces
 {
 
 struct IServer
@@ -14,4 +14,4 @@ struct IServer
   virtual void Run() = 0;
 };
 
-} // namespace iface
+} // namespace interfaces

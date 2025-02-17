@@ -12,11 +12,15 @@ RUN apt-get update && apt-get install -y \
     curl
 
 RUN pip3 install conan
-RUN conan profile new default --detect && \
-    conan profile update settings.compiler.libcxx=libstdc++11 default
+RUN conan profile detect
 
 WORKDIR /app
-COPY . .
+COPY source/ source/
+COPY static/ static/
+COPY Makefile Makefile
+COPY conanfile.txt conanfile.txt
+COPY CMakeLists.txt CMakeLists.txt
+
 RUN make all
 EXPOSE 11050
 

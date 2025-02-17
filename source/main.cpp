@@ -6,7 +6,7 @@
 
 int main()
 {
-  std::unique_ptr<iface::IServer> server =
+  std::unique_ptr<interfaces::IServer> server =
     std::make_unique<logic::CrowServer>("0.0.0.0", 11050);
 
   try
