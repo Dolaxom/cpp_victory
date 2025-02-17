@@ -20,7 +20,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Compose
-        run: docker-compose up --build -d
+        run: docker compose up --build -d
 
       - name: Wait for Containers to Start
         run: sleep 30 # 30 seconds for startup
