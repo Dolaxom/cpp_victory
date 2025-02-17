@@ -1,9 +1,24 @@
-fetch('https://api.github.com/repos/Dolaxom/cpp_victory')
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('stargazers_count').textContent = data.stargazers_count;
-    })
-    .catch(error => console.error('Error from GitHub API, error =', error));
+// GitHub start
+
+async function fetchGitHubStars() {
+    try {
+        const response = await fetch("https://api.github.com/repos/Dolaxom/cpp_victory");
+
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        document.getElementById('github-stars').textContent = data.stargazers_count || 0;
+    } catch (error) {
+        console.error('Error fetching data from GitHub:', error);
+        document.getElementById('github-stars').textContent = "Error";
+    }
+}
+
+fetchGitHubStars();
+
+// Real-time years counter
 
 const startYear = 1985;
 const yearsSince1985 = () => {
