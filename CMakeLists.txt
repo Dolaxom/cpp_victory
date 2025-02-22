@@ -14,11 +14,14 @@ add_executable(cpp_victory
 
   source/core/base_server.cpp
   source/core/utils.cpp
+  source/core/tiny_cache/cache.cpp
   source/logic/crow_server.cpp
 
   source/iface/iserver.h
   source/core/base_server.h
   source/core/utils.h
+  source/core/tiny_cache/cache.h
+  source/core/tiny_cache/static_files_list.h
   source/logic/crow_server.h
 )
 
