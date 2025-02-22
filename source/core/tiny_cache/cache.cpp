@@ -7,7 +7,7 @@
 namespace core
 {
 
-  Cache::result Cache::Get(const std::filesystem::path& key) const
+  Cache::result Cache::Get(const std::string& key) const
   {
     if (auto it = cache_.find(key); it != cache_.end())
     {
@@ -17,7 +17,7 @@ namespace core
     return {false, ""};
   }
 
-  Cache::status Cache::Add(const std::filesystem::path& key, const std::string& data)
+  Cache::status Cache::Add(const std::string& key, const std::string& data)
   {
     if (auto it = cache_.find(key); it != cache_.end())
     {
@@ -32,7 +32,7 @@ void InitCache(Cache& cache)
 {
   for (size_t i = 0; i < static_dir::size; ++i)
   {
-    const std::filesystem::path path = static_dir::files[i];
+    const std::string path = static_dir::files[i];
     std::string data;
     if (core::Utils::GetStaticFile(path, data))
     {
@@ -40,7 +40,7 @@ void InitCache(Cache& cache)
     }
     else
     {
-      throw std::runtime_error("Can't find file " + path.string() + " in cache");
+      throw std::runtime_error("Can't find file " + path + " in cache");
     }
   }
 }

@@ -10,15 +10,18 @@ namespace core
 class Cache
 {
 public:
+  Cache() = default;
+
   using status = bool;
   using result = std::pair<status, std::string>;
 
-  result Get(const std::filesystem::path& key) const;
-  status Add(const std::filesystem::path& key, const std::string& data);
+  result Get(const std::string& key) const;
+  status Add(const std::string& key, const std::string& data);
 
 private:
   // map<file_path, file_data>
-  std::unordered_map<std::filesystem::path, std::string> cache_;
+  // NOTE: We can't use fs::path like key in map (check standard)
+  std::unordered_map<std::string, std::string> cache_;
 };
 
 void InitCache(Cache& cache);
