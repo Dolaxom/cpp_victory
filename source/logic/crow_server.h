@@ -1,5 +1,6 @@
 #pragma once
 
+#include <core/tiny_cache/cache.h>
 #include <core/base_server.h>
 #include <crow.h>
 
@@ -19,6 +20,7 @@ public:
 
 private:
   crow::SimpleApp rawCrowApp_;
+  core::Cache cache_;
 };
 
 } // namespace logic

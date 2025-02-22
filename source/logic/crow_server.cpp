@@ -17,19 +17,24 @@ namespace logic
 
   void CrowServer::Setup()
   {
-    CROW_ROUTE(rawCrowApp_, "/")([](){
-      std::string data;
-      bool exist = core::Utils::GetStaticFile("index.html", data);
-      if (!exist) throw std::runtime_error("Where is index.html???");
+    core::InitCache(cache_);
 
-      crow::response res{200, data};
+    CROW_ROUTE(rawCrowApp_, "/")([&](){
+      auto result = cache_.Get("index.html");
+      if (!result.first) throw std::runtime_error("Where is index.html?");
+
+      crow::response res{200, result.second};
       res.set_header("Content-Type", "text/html; charset=UTF-8");
       return res;
     });
 
-    CROW_ROUTE(rawCrowApp_, "/<string>")([](std::string path) {
-      std::string data;
-      if (core::Utils::GetStaticFile(path, data))
+    CROW_ROUTE(rawCrowApp_, "/<string>")([&](std::string path) {
+      auto cacheResult = cache_.Get(path);
+      if (cacheResult.first)
+      {
+        return crow::response{200, cacheResult.second};
+      }
+      else if (std::string data; core::Utils::GetStaticFile(path, data))
       {        
         return crow::response{200, data};
       }
