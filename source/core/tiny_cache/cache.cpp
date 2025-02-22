@@ -19,7 +19,7 @@ namespace core
 
   Cache::status Cache::Add(const std::filesystem::path& key, const std::string& data)
   {
-    if (auto it = cache_.find(key); it == cache_.end())
+    if (auto it = cache_.find(key); it != cache_.end())
     {
       return false;
     }

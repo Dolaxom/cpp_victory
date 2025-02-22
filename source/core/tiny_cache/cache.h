@@ -21,7 +21,7 @@ private:
   std::unordered_map<std::filesystem::path, std::string> cache_;
 };
 
-inline void InitCache(Cache& cache);
+void InitCache(Cache& cache);
 
 } // namespace core
 
