@@ -3,7 +3,6 @@
 
 #include <stdexcept>
 #include <httplib/httplib.h>
-#include <iostream>
 
 namespace logic
 {
@@ -54,11 +53,9 @@ namespace logic
   std::string CrowServer::GetLocalizePageName(const crow::request& req)
   {
     std::string ip = req.get_header_value("X-Forwarded-For");
-    std::cout << "ip X-Forwarded-For: " << ip << std::endl;
     if (ip.empty())
     {
       ip = req.remote_ip_address;
-      std::cout << "ip remote_ip_address: " << ip << std::endl;
     }
 
     httplib::Client cli("http://ip-api.com");
@@ -67,7 +64,6 @@ namespace logic
     auto ipResponse = cli.Get("/json/" + ip);
 
     bool youtubeBlocked = false;
-    std::cout << ipResponse->body << std::endl;
     if (ipResponse && ipResponse->body.find("Russia") != ipResponse->body.npos)
     {
       youtubeBlocked = true;
