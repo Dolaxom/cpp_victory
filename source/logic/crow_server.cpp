@@ -20,6 +20,23 @@ namespace logic
   CrowServer::CrowServer(std::string&& address, uint32_t port)
     : BaseServer{std::move(address), port} { }
 
+  /**
+   * @brief Сonfigure basic server settings.
+   *
+   * Сonfigure basic server settings, such as tiny-cache 
+   * initialization and declaring server endpoints.
+   *
+   * @return It doesn't return anything, but it can throw an exception.
+   *
+   * @details
+   * It can throw a standard exception inherited from std::exception,
+   * so a try-catch block is required!
+   *
+   * @usage
+   * CrowServer server("0.0.0.0", 11050);
+   * server.Setup();
+   * server.Run();
+   */
   void CrowServer::Setup()
   {
     core::InitCache(cache_);
@@ -49,11 +66,29 @@ namespace logic
     });
   }
   
+  /**
+   * @brief Standard launch of the CrowCpp server.
+   */
   void CrowServer::Run()
   {
     rawCrowApp_.port(GetPort()).multithreaded().run();
   }
 
+  /**
+   * @brief Select the desired version index.html pages.
+   *
+   * Selects a Russian page or an international page
+   * with different video players (Youtube/Rutube).
+   *
+   * @return Page filename.
+   *
+   * @details
+   * It's just a private helper function for
+   * handling the root of a website ('/' page).
+   *
+   * @usage
+   * std::string page = GetLocalizePageName(request);
+   */
   std::string CrowServer::GetLocalizePageName(const crow::request& req)
   {
     std::string ip = req.get_header_value("X-Forwarded-For");
