@@ -1,8 +1,12 @@
 #include <logic/crow_server.h>
 #include <core/utils.h>
 
+#include <cstdint>
 #include <stdexcept>
 #include <httplib/httplib.h>
+
+constexpr auto indexhtml    = "index.html";
+constexpr auto ru_indexhtml = "ru_index.html";
 
 namespace logic
 {
@@ -53,23 +57,19 @@ namespace logic
   std::string CrowServer::GetLocalizePageName(const crow::request& req)
   {
     std::string ip = req.get_header_value("X-Forwarded-For");
-    if (ip.empty())
-    {
-      ip = req.remote_ip_address;
-    }
+    if (ip.empty()) ip = req.remote_ip_address;
 
-    httplib::Client cli("http://ip-api.com");
-    cli.set_connection_timeout(0, 500000);
-    cli.set_read_timeout(0, 500000);
+    static constexpr time_t delay = 500000;
+    static const std::string apiUrl = "http://ip-api.com";
+    httplib::Client cli(apiUrl);
+    cli.set_connection_timeout(0, delay);
+    cli.set_read_timeout(0, delay);
     auto ipResponse = cli.Get("/json/" + ip);
 
-    bool youtubeBlocked = false;
-    if (ipResponse && ipResponse->body.find("Russia") != ipResponse->body.npos)
-    {
-      youtubeBlocked = true;
-    }
+    bool youtubeBlocked = (ipResponse &&
+      ipResponse->body.find("Russia") != ipResponse->body.npos);
 
-    return youtubeBlocked ? "ru_index.html" : "index.html";
+    return youtubeBlocked ? ru_indexhtml : indexhtml;
   }
 
 } // namespace logic
