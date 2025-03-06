@@ -21,6 +21,9 @@ public:
 private:
   crow::SimpleApp rawCrowApp_;
   core::Cache cache_;
+
+private:
+  std::string GetLocalizePageName(const crow::request& req);
 };
 
 } // namespace logic

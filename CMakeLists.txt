@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include(${CMAKE_BINARY_DIR}/generators/conan_toolchain.cmake)
 
 find_package(Crow REQUIRED)
+find_package(httplib REQUIRED)
 
 add_executable(cpp_victory
   source/main.cpp
@@ -25,6 +26,6 @@ add_executable(cpp_victory
   source/logic/crow_server.h
 )
 
-target_link_libraries(cpp_victory Crow::Crow)
+target_link_libraries(cpp_victory Crow::Crow httplib::httplib)
 
 include_directories(source)

@@ -8,6 +8,7 @@ namespace static_dir
 constexpr const char* files[] =
 {
   "index.html",
+  "ru_index.html",
   "styles.css",
   "script.js",
   "bocchi_cpp.png",

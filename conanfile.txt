@@ -1,5 +1,6 @@
 [requires]
 crowcpp-crow/1.2.0
+cpp-httplib/0.18.3
 
 [generators]
 CMakeDeps

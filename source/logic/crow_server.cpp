@@ -2,6 +2,8 @@
 #include <core/utils.h>
 
 #include <stdexcept>
+#include <httplib/httplib.h>
+#include <iostream>
 
 namespace logic
 {
@@ -19,11 +21,12 @@ namespace logic
   {
     core::InitCache(cache_);
 
-    CROW_ROUTE(rawCrowApp_, "/")([&](){
-      auto result = cache_.Get("index.html");
-      if (!result.first) throw std::runtime_error("Where is index.html?");
+    CROW_ROUTE(rawCrowApp_, "/")([&](const crow::request& req) {
+      std::string page = GetLocalizePageName(req);
+      auto result = cache_.Get(page);
+      if (!result.first) throw std::runtime_error("Where is " + page + "?");
 
-      crow::response res{200, result.second};
+      crow::response res{HttpStatus::OK, result.second};
       res.set_header("Content-Type", "text/html; charset=UTF-8");
       return res;
     });
@@ -32,20 +35,45 @@ namespace logic
       auto cacheResult = cache_.Get(path);
       if (cacheResult.first)
       {
-        return crow::response{200, cacheResult.second};
+        return crow::response{HttpStatus::OK, cacheResult.second};
       }
       else if (std::string data; core::Utils::GetStaticFile(path, data))
       {        
-        return crow::response{200, data};
+        return crow::response{HttpStatus::OK, data};
       }
       
-      return crow::response{404};
+      return crow::response{HttpStatus::NotFound};
     });
   }
   
   void CrowServer::Run()
   {
     rawCrowApp_.port(GetPort()).multithreaded().run();
+  }
+
+  std::string CrowServer::GetLocalizePageName(const crow::request& req)
+  {
+    std::string ip = req.get_header_value("X-Forwarded-For");
+    std::cout << "ip X-Forwarded-For: " << ip << std::endl;
+    if (ip.empty())
+    {
+      ip = req.remote_ip_address;
+      std::cout << "ip remote_ip_address: " << ip << std::endl;
+    }
+
+    httplib::Client cli("http://ip-api.com");
+    cli.set_connection_timeout(0, 500000);
+    cli.set_read_timeout(0, 500000);
+    auto ipResponse = cli.Get("/json/" + ip);
+
+    bool youtubeBlocked = false;
+    std::cout << ipResponse->body << std::endl;
+    if (ipResponse && ipResponse->body.find("Russia") != ipResponse->body.npos)
+    {
+      youtubeBlocked = true;
+    }
+
+    return youtubeBlocked ? "ru_index.html" : "index.html";
   }
 
 } // namespace logic
