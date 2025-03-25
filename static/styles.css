@@ -39,7 +39,7 @@ header h1 {
   font-size: 1.2em;
 }
 
-header .github-stars {
+/* header .github-stars {
   display: flex;
   align-items: center;
 }
@@ -48,6 +48,49 @@ header .github-stars svg {
   width: 24px;
   height: 24px;
   margin-right: 8px;
+} */
+
+.social-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.telegram-btn, .github-btn {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 1em;
+}
+
+.telegram-btn {
+  background-color: #0088cc;
+  color: white;
+}
+
+.telegram-btn:hover {
+  background-color: #00a8ff;
+  transform: translateY(-2px);
+}
+
+.github-btn {
+  background-color: #24292e;
+  color: white;
+}
+
+.github-btn:hover {
+  background-color: #444d56;
+  transform: translateY(-2px);
+}
+
+.telegram-btn svg, .github-btn svg {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
 }
 
 .container {
@@ -159,8 +202,18 @@ footer {
     margin-top: 10px;
   }
 
-  .github-stars {
+  /* .github-stars {
     margin-top: 10px;
+  } */
+
+  .social-buttons {
+    margin-top: 15px;
+    gap: 10px;
+  }
+  
+  .telegram-btn, .github-btn {
+    padding: 6px 12px;
+    font-size: 0.9em;
   }
 
   .playlists iframe {
