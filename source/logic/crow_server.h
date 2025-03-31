@@ -4,6 +4,8 @@
 #include <core/base_server.h>
 #include <crow.h>
 
+#include "prometheus/prometheus.h"
+
 namespace logic
 {
 
@@ -19,6 +21,7 @@ public:
   void Run() override;
 
 private:
+  metrics::PrometheusClient prometheusClnt_;
   crow::SimpleApp rawCrowApp_;
   core::Cache cache_;
 

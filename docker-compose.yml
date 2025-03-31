@@ -2,5 +2,44 @@ services:
   cpp_victory:
     build: .
     ports:
-      - "11050:11050"
+      - "11050:11050"  # Application Port
+      - "9091:9091"    # Prometheus Port
     restart: always
+    networks:
+      - common_net
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: always
+    networks:
+      - common_net
+    depends_on:
+      - cpp_victory
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}          # .env
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}  # .env
+    restart: always
+    networks:
+      - common_net
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  common_net:
+    driver: bridge

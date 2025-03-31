@@ -12,13 +12,13 @@ namespace logic
 {
 
   CrowServer::CrowServer(CrowServer&& server) noexcept
-    : BaseServer{std::move(server)} { }
+    : BaseServer{std::move(server)}, prometheusClnt_{"0.0.0.0", 9091} { }
 
   CrowServer::CrowServer(const std::string& address, uint32_t port)
-    : BaseServer{address, port} { }
+    : BaseServer{address, port}, prometheusClnt_{"0.0.0.0", 9091} { }
 
   CrowServer::CrowServer(std::string&& address, uint32_t port)
-    : BaseServer{std::move(address), port} { }
+    : BaseServer{std::move(address), port}, prometheusClnt_{"0.0.0.0", 9091} { }
 
   /**
    * @brief Сonfigure basic server settings.
@@ -42,6 +42,7 @@ namespace logic
     core::InitCache(cache_);
 
     CROW_ROUTE(rawCrowApp_, "/")([&](const crow::request& req) {
+      prometheusClnt_.IncrementRequestCounter("/");
       std::string page = GetLocalizePageName(req);
       auto result = cache_.Get(page);
       if (!result.first) throw std::runtime_error("Where is " + page + "?");
@@ -52,6 +53,7 @@ namespace logic
     });
 
     CROW_ROUTE(rawCrowApp_, "/<string>")([&](std::string path) {
+      prometheusClnt_.IncrementRequestCounter(path);
       auto cacheResult = cache_.Get(path);
       if (cacheResult.first)
       {
