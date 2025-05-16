@@ -7,14 +7,15 @@
 namespace logic
 {
 
-class LikeStorage
+class LikeStorage final
 {
 public:
-  void Set(const uint64_t value);
+  void Set(uint64_t value) noexcept;
   uint64_t Get() const noexcept;
+  void Increment() noexcept;
 
 private:
-  uint64_t likesCount_;
+  std::atomic<uint64_t> likesCount_{0};
 };
 
 class LikeManager

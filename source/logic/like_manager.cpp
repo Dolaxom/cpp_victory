@@ -6,20 +6,25 @@
 namespace logic
 {
 
-void LikeStorage::Set(const uint64_t value)
+void LikeStorage::Set(uint64_t value) noexcept
 {
-  likesCount_ = value;
+  likesCount_.store(value, std::memory_order_relaxed);
 }
 
 uint64_t LikeStorage::Get() const noexcept
 {
-  return likesCount_;
+  return likesCount_.load(std::memory_order_relaxed);
 }
 
-LikeManager::LikeManager(const std::filesystem::path& path) : path_{path}
+void LikeStorage::Increment() noexcept
+{
+  likesCount_.fetch_add(1, std::memory_order_relaxed);
+}
+
+LikeManager::LikeManager(const std::filesystem::path& path)
+  : path_{path}
 {
   std::ifstream file {path_};
-
   if (!file)
   {
     WriteUint64InFile(0);
@@ -36,7 +41,7 @@ LikeManager::~LikeManager()
 
 void LikeManager::Increment()
 {
-  storage_->Set(storage_->Get() + 1);
+  storage_->Increment();
 }
 
 uint64_t LikeManager::Get()
