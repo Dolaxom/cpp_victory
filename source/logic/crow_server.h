@@ -5,6 +5,7 @@
 #include <crow.h>
 
 #include "prometheus/prometheus.h"
+#include "like_manager.h"
 
 namespace logic
 {
@@ -24,6 +25,7 @@ private:
   metrics::PrometheusClient prometheusClnt_;
   crow::SimpleApp rawCrowApp_;
   core::Cache cache_;
+  logic::LikeManager likesManager_;
 
 private:
   std::string GetLocalizePageName(const crow::request& req);

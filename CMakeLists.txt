@@ -17,6 +17,7 @@ set(SOURCES
   source/core/utils.cpp
   source/core/tiny_cache/cache.cpp
   source/logic/crow_server.cpp
+  source/logic/like_manager.cpp
   source/logic/prometheus/prometheus.cpp
 )
 
@@ -27,6 +28,7 @@ set(HEADERS
   source/core/tiny_cache/cache.h
   source/core/tiny_cache/static_files_list.h
   source/logic/crow_server.h
+  source/logic/like_manager.h
   source/logic/prometheus/prometheus.h
 )
 

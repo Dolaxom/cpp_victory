@@ -12,13 +12,13 @@ namespace logic
 {
 
   CrowServer::CrowServer(CrowServer&& server) noexcept
-    : BaseServer{std::move(server)}, prometheusClnt_{"0.0.0.0", 9091} { }
+    : BaseServer{std::move(server)}, prometheusClnt_{"0.0.0.0", 9091}, likesManager_{"likes.gen.txt"} { }
 
   CrowServer::CrowServer(const std::string& address, uint32_t port)
-    : BaseServer{address, port}, prometheusClnt_{"0.0.0.0", 9091} { }
+    : BaseServer{address, port}, prometheusClnt_{"0.0.0.0", 9091}, likesManager_{"likes.gen.txt"} { }
 
   CrowServer::CrowServer(std::string&& address, uint32_t port)
-    : BaseServer{std::move(address), port}, prometheusClnt_{"0.0.0.0", 9091} { }
+    : BaseServer{std::move(address), port}, prometheusClnt_{"0.0.0.0", 9091}, likesManager_{"likes.gen.txt"} { }
 
   /**
    * @brief Сonfigure basic server settings.
@@ -50,6 +50,18 @@ namespace logic
       crow::response res{HttpStatus::OK, result.second};
       res.set_header("Content-Type", "text/html; charset=UTF-8");
       return res;
+    });
+
+    CROW_ROUTE(rawCrowApp_, "/like").methods("POST"_method)([&](const crow::request& req) {
+      likesManager_.Increment();
+
+      return crow::response{HttpStatus::OK};
+    });
+
+    CROW_ROUTE(rawCrowApp_, "/like").methods("GET"_method)([&](const crow::request& req) {
+        crow::json::wvalue result;
+        result["like"] = likesManager_.Get();
+        return result;
     });
 
     CROW_ROUTE(rawCrowApp_, "/<string>")([&](std::string path) {
