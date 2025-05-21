@@ -88,6 +88,11 @@ namespace logic
     rawCrowApp_.port(GetPort()).multithreaded().run();
   }
 
+  void CrowServer::Stop()
+  {
+    rawCrowApp_.stop();
+  }
+
   /**
    * @brief Select the desired version index.html pages.
    *

@@ -20,6 +20,7 @@ public:
 
   void Setup() override;
   void Run() override;
+  void Stop() override;
 
 private:
   metrics::PrometheusClient prometheusClnt_;

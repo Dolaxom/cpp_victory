@@ -33,5 +33,28 @@ const updateYears = () => {
     document.getElementById('years-since-1985').textContent = yearsSince1985();
 };
 
+// Likes
+
+async function updateLikeCount() {
+    try {
+        const res = await fetch("/like");
+        const data = await res.json();
+        document.getElementById("like-count").textContent = data.like;
+    } catch (e) {
+        console.error("Не удалось получить количество лайков:", e);
+    }
+}
+
+document.getElementById("like-button").addEventListener("click", async () => {
+    try {
+        await fetch("/like", { method: "POST" });
+        updateLikeCount();
+    } catch (e) {
+        console.error("Ошибка при отправке лайка:", e);
+    }
+});
+
+updateLikeCount();
+
 updateYears();
 setInterval(updateYears, 100);

@@ -30,7 +30,7 @@ public:
 
 private:
   std::shared_ptr<LikeStorage> storage_;
-  const std::filesystem::path& path_;
+  const std::filesystem::path path_;
 
 private:
   uint64_t ReadUint64FromFile();

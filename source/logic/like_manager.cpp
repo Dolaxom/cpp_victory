@@ -29,6 +29,7 @@ LikeManager::LikeManager(const std::filesystem::path& path)
   {
     WriteUint64InFile(0);
   }
+  file.close();
 
   storage_ = std::make_shared<LikeStorage>();
   storage_->Set(ReadUint64FromFile());
@@ -61,6 +62,8 @@ uint64_t LikeManager::ReadUint64FromFile()
   if (!file)
     throw std::runtime_error("Failed to read uint64_t from binary file: " + path_.string());
 
+  file.close();
+
   return value;
 }
 
@@ -74,6 +77,8 @@ void LikeManager::WriteUint64InFile(uint64_t value)
 
   if (!file)
     throw std::runtime_error("Failed to write uint64_t to binary file: " + path_.string());
+
+  file.close();
 }
 
 } // namespace logic

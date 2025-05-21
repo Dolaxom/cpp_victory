@@ -49,6 +49,7 @@ public:
 
   void Setup() override = 0;
   void Run() override = 0;
+  void Stop() override = 0;
 
 private:
   std::string address_;
