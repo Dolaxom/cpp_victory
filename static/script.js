@@ -55,6 +55,7 @@ document.getElementById("like-button").addEventListener("click", async () => {
 });
 
 updateLikeCount();
+setInterval(updateLikeCount, 1500);
 
 updateYears();
 setInterval(updateYears, 100);
