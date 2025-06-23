@@ -19,6 +19,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Create .env file
+        run: |
+          echo "SERVER_ADDR=localhost" > .env
+          echo "SERVER_PORT=8080" >> .env
+
       - name: Build Docker Compose
         run: docker compose up --build -d
 

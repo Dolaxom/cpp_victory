@@ -20,7 +20,7 @@ COPY static/ static/
 COPY Makefile Makefile
 COPY conanfile.txt conanfile.txt
 COPY CMakeLists.txt CMakeLists.txt
-COPY .env .env 2>/dev/null || echo ".env not found"
+COPY .env .env
 
 RUN make all
 EXPOSE 11050
