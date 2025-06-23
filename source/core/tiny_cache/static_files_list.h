@@ -11,10 +11,10 @@ constexpr const char* files[] =
   "ru_index.html",
   "styles.css",
   "script.js",
-  "bocchi_cpp.png",
-  "book_img_1.png",
-  "logo.png",
-  "meme-pointers.jpg"
+  "index_img_1.png",
+  "index_img_2.png",
+  "favicon.png",
+  "index_img_3.jpg"
 };
 
 constexpr size_t size = sizeof(files) / sizeof(files[0]);
