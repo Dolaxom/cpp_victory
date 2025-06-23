@@ -19,3 +19,12 @@ C++ Victory!
 * [питонпобеда.рф](https://xn--80abjdn4agbfd4a.xn--p1ai/)
 * [растпобеда.рф](https://xn--80aacme6cggkk.xn--p1ai/)
 * [сипобеда.рф](https://xn--80abjdn0bgo.xn--p1ai/)
+
+---
+
+Для запуска необходимо создать `.env` файл в корне проекта:
+
+```
+SERVER_ADDR=...
+SERVER_PORT=...
+```
