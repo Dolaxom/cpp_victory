@@ -71,7 +71,7 @@ namespace logic
       {
         return crow::response{HttpStatus::OK, cacheResult.second};
       }
-      else if (std::string data; core::Utils::GetStaticFile(path, data))
+      else if (std::string data; core::utils::StaticContent::GetFile(path, data))
       {        
         return crow::response{HttpStatus::OK, data};
       }
@@ -88,6 +88,9 @@ namespace logic
     rawCrowApp_.port(GetPort()).multithreaded().run();
   }
 
+  /**
+   * @brief Standard stop of the CrowCpp server.
+   */
   void CrowServer::Stop()
   {
     rawCrowApp_.stop();

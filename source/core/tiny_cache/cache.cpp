@@ -34,7 +34,7 @@ void InitCache(Cache& cache)
   {
     const std::string path = static_dir::files[i];
     std::string data;
-    if (core::Utils::GetStaticFile(path, data))
+    if (core::utils::StaticContent::GetFile(path, data))
     {
       cache.Add(path, data);
     }

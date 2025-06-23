@@ -3,15 +3,15 @@
 #include <string>
 #include <filesystem>
 
-namespace core
+namespace core::utils
 {
 
-struct Utils
+struct StaticContent
 {
   using error = bool;
 
-  static error GetStaticFile(const std::filesystem::path& path, std::string& data);
+  static error GetFile(const std::filesystem::path& path, std::string& data);
 };
 
-} // namespace core
+} // namespace core::utils
 

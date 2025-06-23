@@ -4,10 +4,10 @@
 
 namespace fs = std::filesystem;
 
-namespace core
+namespace core::utils
 {
 
-  Utils::error Utils::GetStaticFile(const std::filesystem::path& path, std::string& data)
+  StaticContent::error StaticContent::GetFile(const std::filesystem::path& path, std::string& data)
   {
     fs::path staticDir = fs::canonical("static");
     fs::path requestedFile = fs::weakly_canonical(staticDir / path);
@@ -33,5 +33,4 @@ namespace core
     return true;
   }
 
-} // namespace core
-
+} // namespace core::utils
