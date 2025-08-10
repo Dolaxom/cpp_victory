@@ -1,15 +1,21 @@
 cmake_minimum_required(VERSION 3.15)
-project(cpp_victory)
+project(cpp_victory LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Conan toolchain
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/generators/conan_toolchain.cmake")
+    message(FATAL_ERROR "Conan toolchain not found")
+endif()
 include(${CMAKE_BINARY_DIR}/generators/conan_toolchain.cmake)
 
-find_package(Crow REQUIRED)
-find_package(httplib REQUIRED)
-find_package(prometheus-cpp REQUIRED)
+# Dependencies
+find_package(Crow REQUIRED CONFIG)
+find_package(httplib REQUIRED CONFIG)
+find_package(prometheus-cpp REQUIRED CONFIG)
 
 set(SOURCES
   source/main.cpp
