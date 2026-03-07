@@ -18,7 +18,8 @@ C++ Victory!
 
 * [питонпобеда.рф](https://xn--80abjdn4agbfd4a.xn--p1ai/)
 * [растпобеда.рф](https://xn--80aacme6cggkk.xn--p1ai/)
-* [сипобеда.рф](https://xn--80abjdn0bgo.xn--p1ai/)
+
+--> полный список можно посмотреть здесь: https://github.com/xbt573/awesome-pobeda
 
 ---
 
